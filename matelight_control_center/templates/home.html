@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="card first-element">
+        <img class="card-img-top" src="{{ url_for('static', filename='img/matelight_view.jpg') }}" alt="Card image cap"
+             style="object-fit: cover; max-height: 300px;">
+        <div class="card-block">
+            <h1 class="card-title">Matelight Control Center</h1>
+            <p class="card-text">This is the Matelight Control Center. Choose the App you want on the top!</p>
+        </div>
+    </div>
+{% endblock %}

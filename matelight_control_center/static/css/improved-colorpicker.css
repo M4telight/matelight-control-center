@@ -1,0 +1,20 @@
+.colorpicker-saturation {
+    width: 400px;
+    height: 400px;
+}
+
+.colorpicker-hue, .colorpicker-alpha {
+    width: 50px;
+    height: 400px;
+}
+
+/*.colorpicker-alpha {*/
+    /*width: 50px;*/
+    /*height: 400px;*/
+/*}*/
+
+.colorpicker-color {
+    width: 500px;
+}
+
+

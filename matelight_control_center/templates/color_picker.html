@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/improved-colorpicker.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="card text-center first-element">
+        <div class="card-header">
+            Choose Display Color
+        </div>
+        <div class="card-block">
+            <div id="color-picker"></div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary" id="set-color-btn">Set Color</button>
+            <button class="btn btn-warning" id="stop-color-display">Stop Displaying Color</button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/bootstrap-colorpicker.min.js') }}"></script>
+    <script>
+    $(function() {
+        $('#color-picker').colorpicker({
+            color: "#ff0000",
+            container: true,
+            inline: true,
+            sliders: {
+                saturation: {
+                    maxLeft: 400,
+                    maxTop: 400,
+                    callLeft: 'setSaturation',
+                    callTop: 'setBrightness'
+                },
+                hue: {
+                    maxLeft: 0,
+                    maxTop: 400,
+                    callLeft: false,
+                    callTop: 'setHue'
+                },
+                alpha: {
+                    maxLeft: 0,
+                    maxTop: 400,
+                    callLeft: false,
+                    callTop: 'setAlpha'
+                }
+            }
+        });
+
+        $('#set-color-btn').on('click', function (event) {
+            const colorPicker = $('#color-picker');
+            const pickedColor = colorPicker.colorpicker('getValue');
+            $.post("{{ url_for("set_color") }}", {color: pickedColor}, function(){
+                console.log("Successfully set color!");
+            }).fail(function(){
+                console.log("Could not set color on Matelight!");
+            });
+        });
+
+        $('#stop-color-display').on('click', function (event) {
+            $.get("{{ url_for('stop') }}", function () {
+               console.log("Successfully stopped Color Display!");
+            }).fail(function(){
+                console.log("Could stop color display");
+            });
+        });
+    });
+    </script>
+{% endblock %}
